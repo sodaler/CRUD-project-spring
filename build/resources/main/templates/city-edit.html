@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{default}" xmlns:layout="http://www.w3.org/1999/xhtml">
+<head>
+</head>
+<body>
+<div layout:fragment="content">
+    <div th:text="${errors}" class="margin-bottom alert-danger"></div>
+    <form action="#" th:action="@{/city/{id}(id=${id})}" th:object="${cityDto}" method="post">
+        <div class="mb-3">
+            <label for="name" class="form-label">Название</label>
+            <input type="text" class="form-control" id="name" th:field="${cityDto.name}" required="true">
+        </div>
+        <div class="mb-3">
+            <button type="submit" class="btn btn-primary button-fixed">
+                <span th:if="${id == null}">Добавить</span>
+                <span th:if="${id != null}">Обновить</span>
+            </button>
+            <a class="btn btn-secondary button-fixed" th:href="@{/city}">
+                Назад
+            </a>
+        </div>
+    </form>
+    <div class="table-responsive">
+        <table class="table">
+            <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">ID</th>
+                <th scope="col">Имя</th>
+                <th scope="col">Фамилия</th>
+                <th scope="col">Серия</th>
+                <th scope="col">Номер</th>
+                <th scope="col">Город</th>
+                <th scope="col"></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="worker, iterator: ${workers}">
+                <th scope="row" th:text="${iterator.index} + 1"/>
+                <td th:text="${worker.id}"/>
+                <td th:text="${worker.firstName}"/>
+                <td th:text="${worker.lastName}"/>
+                <td th:text="${worker.serial}"/>
+                <td th:text="${worker.number}"/>
+                <td th:text="${worker.city}"/>
+<!--                <td>-->
+<!--                    <input th:if="${worker.city == cityDto.name}" type="checkbox" checked>-->
+<!--                </td>-->
+                <td style="width: 10%">
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+</body>
+</html>
